@@ -20,6 +20,7 @@
 *.out
 *.app
 test_greeks
+test_greeks_simple
 plot_csv
 bs_greeks_demo
 bs_report
