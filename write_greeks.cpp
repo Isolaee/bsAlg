@@ -33,11 +33,11 @@ void write_scenario_csv(const std::string& filename,
     // Set precision for output
     csv << std::scientific << std::setprecision(12);
     
-    // Logarithmic grid of relative step sizes h_rel ∈ [10^-16, 10^-1]
+    // Logarithmic grid of relative step sizes h_rel ∈ [10^-16, 10^-4]
     // 24 points as suggested in the validation scenarios
     const int num_points = 24;
     const double log_min = -16.0;  // 10^-16
-    const double log_max = -1.0;   // 10^-1
+    const double log_max = -4.0;   // 10^-4
     
     for (int i = 0; i < num_points; ++i) {
         // Logarithmic spacing

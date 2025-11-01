@@ -37,7 +37,7 @@ int main() {
     }
     
     std::cout << "\nCSV files generated successfully.\n";
-    std::cout << "Each file contains data sweeping h_rel over [10^-16, 10^-1] with 24 logarithmically-spaced points.\n";
+    std::cout << "Each file contains data sweeping h_rel over [10^-16, 10^-4] with 24 logarithmically-spaced points.\n";
     
     return 0;
 }
