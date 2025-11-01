@@ -25,15 +25,9 @@ bsAlg/
 
 ## Building
 
-### Compile Tests
-```bash
-g++ -std=c++11 -o tests/test_greeks_simple \
-    tests/test_greeks_simple.cpp \
-    bs_call_price_greeks/analytic_greeks.cpp \
-    classical_forward_differences/classical_forward_differences.cpp \
-    complex_step_differentation/complex_step_differentation.cpp \
-    -I.
-```
+### Requirements
+
+- C++11 or later
 
 ### Compile Validation Program
 ```bash
@@ -46,7 +40,19 @@ g++ -std=c++11 -o test_greeks \
     -I.
 ```
 
+### Compile Tests
+```bash
+g++ -std=c++11 -o tests/test_greeks_simple \
+    tests/test_greeks_simple.cpp \
+    bs_call_price_greeks/analytic_greeks.cpp \
+    classical_forward_differences/classical_forward_differences.cpp \
+    complex_step_differentation/complex_step_differentation.cpp \
+    -I.
+```
+
 ## Running
+
+
 
 ### Run Unit Tests
 ```bash
@@ -63,16 +69,6 @@ Testing gamma is positive... ✓ PASSED
 ...
 ✓ All tests passed!
 ```
-
-### Generate Validation CSVs
-```bash
-mkdir -p output
-./test_greeks
-```
-
-This generates comparative analysis CSV files in `output/`:
-- `bs_fd_vs_complex_scenario1.csv` - ATM reference case
-- `bs_fd_vs_complex_scenario2.csv` - Near-expiry, low-volatility case
 
 ## Methods Comparison
 
@@ -163,9 +159,66 @@ All plots use log-log scale (h_rel vs absolute error) to visualize the behavior 
 
 Generated files: `output/scenario1_errors.png` and `output/scenario2_errors.png`
 
-## Requirements
+## Conclusion
 
-- C++11 or later
+This validation study compares numerical differentiation methods for computing Black-Scholes Greeks under both standard and stress conditions.
+
+### Accuracy Analysis
+
+#### Delta Computation
+
+Complex-step differentiation demonstrates superior accuracy compared to finite difference methods in both validation scenarios, maintaining machine-precision errors (≈10^-16) across step sizes from 10^-16 to 10^-4. The method begins to degrade only when the relative step size exceeds 10^-4, at which point truncation error dominates.
+
+In contrast, finite difference methods exhibit optimal accuracy at h_rel ≈ 10^-8 with errors around 10^-9, representing a 1,000-fold degradation compared to complex-step approaches.
+
+#### Gamma Computation
+
+For second derivatives, the 45° complex-step method proves optimal, consistently outperforming both standard complex-step (real part) and finite difference implementations. This method maintains machine precision across the entire practical step-size range, demonstrating its theoretical O(h⁴) truncation error advantage.
+
+Finite difference methods for Gamma show significantly larger errors (≈10^-9 to 10^-6) and require careful step-size selection near h_rel ≈ 7×10^-6 to balance roundoff and truncation errors.
+
+### Step-Size Sensitivity
+
+#### Finite Difference Methods
+
+Both Delta and Gamma implementations using finite differences exhibit the characteristic U-shaped error curve on log-log scale:
+- **Left regime (h < 10^-8)**: Roundoff error dominates, scaling as O(ε/h) for first derivatives and O(ε/h²) for second derivatives
+- **Right regime (h > 10^-6)**: Truncation error dominates, scaling as O(h) for Delta and O(h²) for Gamma
+- **Optimal region**: Narrow band near h_rel ≈ 10^-8 for Delta and 7×10^-6 for Gamma
+
+#### Complex-Step Methods
+
+Complex-step approaches demonstrate remarkable robustness, maintaining near-zero error across 8-10 orders of magnitude in step size (10^-16 to 10^-6). This flat error profile eliminates the need for scenario-specific step-size tuning and provides consistent accuracy regardless of market conditions.
+
+### Numerical Stability
+
+The stress scenario (near-expiry, low-volatility with T = 1/365, σ = 0.01) presents significant challenges for finite difference methods:
+- Gamma values increase 733-fold compared to the reference case
+- Relative errors amplify proportionally
+- Optimal step sizes remain constant, but absolute errors degrade
+
+Complex-step methods maintain their accuracy advantage even under these extreme conditions, with the 45° method continuing to deliver machine-precision results.
+
+## Recommendations
+
+### Practical Implementation Guidance
+
+**Primary recommendation**: Use complex-step differentiation with h_rel ∈ [10^-10, 10^-6] for both Delta and Gamma computations. The optimal practical choice is h_rel ≈ 10^-8, which balances numerical precision with computational stability.
+
+**Method-specific recommendations**:
+- **Delta**: Complex-step standard method (imaginary part)
+- **Gamma**: Complex-step 45° method for highest accuracy
+
+**Fallback strategy**: If complex arithmetic is unavailable, finite difference methods require careful step-size selection:
+- Delta: h_rel ≈ 10^-8
+- Gamma: h_rel ≈ 7×10^-6
+
+These values must be validated for each specific scenario, particularly in stress conditions with near-expiry or extreme volatility regimes.
+
+**Production considerations**: For risk management systems requiring high accuracy, complex-step methods should be preferred despite their modest computational overhead (approximately 2× compared to finite differences). The elimination of step-size tuning and robust performance across market regimes justify this cost in production environments.
+
+## Use of AI-tools
+During the completion of this assignment, I utilized GitHub Copilot as an assistive tool for coding, information retrieval, and README formatting. All solutions and decisions presented are my own and remain my sole responsibility.
 
 ## References
 
