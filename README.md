@@ -1,6 +1,6 @@
 # Black-Scholes Greeks Calculator
 
-[![C++ Unit Tests](https://github.com/YOUR_USERNAME/bsAlg/actions/workflows/test.yml/badge.svg)](https://github.com/YOUR_USERNAME/bsAlg/actions/workflows/test.yml)
+[![C++ Unit Tests](https://github.com/Isolaee/bsAlg/actions/workflows/test.yml/badge.svg)](https://github.com/Isolaee/bsAlg/actions/workflows/test.yml)
 
 A comprehensive C++ implementation of Black-Scholes option Greeks with multiple numerical differentiation methods.
 
