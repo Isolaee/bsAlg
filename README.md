@@ -126,7 +126,7 @@ Both scenarios sweep step sizes from h_rel ∈ [10^-16, 10^-1] with 24 logarithm
 
 ## CI/CD
 
-Automated testing runs on every push and pull request via GitHub Actions. The workflow:
+Automated testing runs on every push request via GitHub Actions. The workflow:
 1. Compiles the test suite
 2. Runs all unit tests
 3. Generates validation CSVs
@@ -135,11 +135,6 @@ Automated testing runs on every push and pull request via GitHub Actions. The wo
 ## Requirements
 
 - C++11 or later
-- Standard library only (no external dependencies)
-
-## License
-
-[Add your license here]
 
 ## References
 

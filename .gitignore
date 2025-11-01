@@ -15,19 +15,11 @@
 *.la
 *.lib
 
-# Executables
+# Executables (in root directory only)
 *.exe
 *.out
 *.app
-test_greeks
-test_greeks_simple
-plot_csv
-bs_greeks_demo
-bs_report
-classical_forward_differences
-complex_step_demo
-forward_fd
-analytic_greeks
+/tests/test_greeks_simple
 
 # Build directories
 build/
