@@ -59,3 +59,8 @@ vgcore.*
 *.temp
 *.bak
 *.log
+
+# Gnuplot files
+*.gp
+*.gpi
+*.png

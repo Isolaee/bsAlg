@@ -132,6 +132,37 @@ Automated testing runs on every push request via GitHub Actions. The workflow:
 3. Generates validation CSVs
 4. Uploads results as artifacts
 
+## Visualization
+
+### Plotting Error Analysis with gnuplot
+
+The project includes gnuplot scripts to visualize the error behavior of different numerical differentiation methods. Since C++ does not have native plotting capabilities, we use **gnuplot** - a powerful command-line plotting utility commonly used in scientific computing.
+
+#### Installation
+```bash
+sudo apt install gnuplot-qt  # Ubuntu/Debian
+```
+
+#### Generate Plots
+```bash
+gnuplot plotting/plot_greeks_png.gnuplot  # Generates PNG files
+gnuplot plotting/plot_greeks.gnuplot      # Interactive Qt windows
+```
+
+#### Output
+The scripts generate 2×2 grid plots for each scenario showing:
+- Delta: Finite Difference vs Complex Step errors
+- Gamma: Finite Difference vs Complex Step (Real & 45°) errors
+
+Each plot includes a **red reference line** showing the analytic Greek value for comparison.
+
+All plots use log-log scale (h_rel vs absolute error) to visualize the behavior across step sizes from 10^-16 to 10^-1. The plots clearly demonstrate:
+- **FD methods**: Classic U-shaped error curve (truncation error at large h, roundoff at small h)
+- **CS methods**: Machine-precision accuracy maintained across most of the range (line breaks at zero error are replaced with 10^-17 floor for visualization)
+- **CS 45° method**: Superior accuracy for second derivatives (Gamma)
+
+Generated files: `output/scenario1_errors.png` and `output/scenario2_errors.png`
+
 ## Requirements
 
 - C++11 or later
