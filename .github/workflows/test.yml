@@ -1,0 +1,62 @@
+name: C++ Unit Tests
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y g++ make
+    
+    - name: Compile test suite
+      run: |
+        g++ -std=c++11 -o tests/test_greeks_simple \
+          tests/test_greeks_simple.cpp \
+          bs_call_price_greeks/analytic_greeks.cpp \
+          classical_forward_differences/classical_forward_differences.cpp \
+          complex_step_differentation/complex_step_differentation.cpp \
+          -I.
+    
+    - name: Run unit tests
+      run: |
+        ./tests/test_greeks_simple
+    
+    - name: Compile test_greeks (validation)
+      run: |
+        g++ -std=c++11 -o test_greeks \
+          test_greeks.cpp \
+          write_greeks.cpp \
+          bs_call_price_greeks/analytic_greeks.cpp \
+          classical_forward_differences/classical_forward_differences.cpp \
+          complex_step_differentation/complex_step_differentation.cpp \
+          -I.
+    
+    - name: Generate validation CSVs
+      run: |
+        mkdir -p output
+        ./test_greeks
+    
+    - name: Verify CSV outputs exist
+      run: |
+        test -f output/bs_fd_vs_complex_scenario1.csv
+        test -f output/bs_fd_vs_complex_scenario2.csv
+        echo "✓ CSV files generated successfully"
+    
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: output/*.csv
+        retention-days: 30
