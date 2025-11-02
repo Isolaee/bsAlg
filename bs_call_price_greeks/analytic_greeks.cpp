@@ -77,29 +77,3 @@ double bs_gamma_call(double S, double K, double r, double q, double sigma, doubl
 
     return std::exp(-q * T) * phi_d1 / (S * sigmaT);
 }
-
-double bs_analytic_call(string type, double S, double K, double r, double q, double sigma, double T) {
-    /**
-     * Returns an analytic Greek for a European call option.
-     * Accepted `type` values: "delta" or "gamma".
-     * @param type  Which Greek to return: "delta" | "gamma"
-     * @param S     Spot price
-     * @param K     Strike price
-     * @param r     Continuously compounded risk-free interest rate
-     * @param q     Continuous dividend yield
-     * @param sigma Annualized volatility
-     * @param T     Time to maturity
-     * @return      The requested Greek value, or NaN if `type` is invalid
-     */
-
-    if (type == "delta") {
-        return bs_delta_call(S, K, r, q, sigma, T);
-    }
-
-    if (type == "gamma") {
-        return bs_gamma_call(S, K, r, q, sigma, T);
-    }
-
-    // Invalid type: return NaN to signal error to caller
-    return std::numeric_limits<double>::quiet_NaN();
-}

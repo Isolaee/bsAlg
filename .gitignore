@@ -19,6 +19,8 @@
 *.exe
 *.out
 *.app
+a.out
+/test_greeks
 /tests/test_greeks_simple
 
 # Build directories
