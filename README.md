@@ -180,7 +180,7 @@ This validation study compares numerical differentiation methods for computing B
 
 #### Delta Computation
 
-Complex-step differentiation demonstrates superior accuracy compared to finite difference methods in both validation scenarios, maintaining machine-precision errors (≈10^-16) across step sizes from 10^-16 to 10^-4. The method begins to degrade only when the relative step size exceeds 10^-4, at which point truncation error dominates.
+Complex-step differentiation demonstrates superior accuracy compared to finite difference methods in both validation scenarios, maintaining machine-precision errors (≈10^-16) across step sizes from 10^-16 to 10^-4.
 
 In contrast, finite difference methods exhibit optimal accuracy at h_rel ≈ 10^-8 with errors around 10^-9, representing a 1,000-fold degradation compared to complex-step approaches.
 
@@ -188,16 +188,16 @@ In contrast, finite difference methods exhibit optimal accuracy at h_rel ≈ 10^
 
 For second derivatives, the 45° complex-step method proves optimal, consistently outperforming both standard complex-step (real part) and finite difference implementations. This method maintains machine precision across the entire practical step-size range, demonstrating its theoretical O(h⁴) truncation error advantage.
 
-Finite difference methods for Gamma show significantly larger errors (≈10^-9 to 10^-6) and require careful step-size selection near h_rel ≈ 7×10^-6 to balance roundoff and truncation errors.
+Finite difference methods for Gamma show significantly larger errors and requires carefu deciocion of step-size to be used.
 
 ### Step-Size Sensitivity
 
 #### Finite Difference Methods
 
-Both Delta and Gamma implementations using finite differences exhibit the characteristic U-shaped error curve on log-log scale:
-- **Left regime (h < 10^-8)**: Roundoff error dominates, scaling as O(ε/h) for first derivatives and O(ε/h²) for second derivatives
-- **Right regime (h > 10^-6)**: Truncation error dominates, scaling as O(h) for Delta and O(h²) for Gamma
-- **Optimal region**: Narrow band near h_rel ≈ 10^-8 for Delta and 7×10^-6 for Gamma
+Finite differences are governed by two competing factors: truncation error and roundoff error.
+- **Left regime**: We are approaching optimal accuracy with some truncation error remaining
+- **Right regime**: Past the point of optimal accuracy, roundoff error starts dominating and causes accuracy to drop.
+- **Optimal region**: The optimal region appears to be h_rel ≈ 10^-8 for Delta and 7×10^-6 for Gamma.
 
 #### Complex-Step Methods
 
@@ -216,7 +216,7 @@ Complex-step methods maintain their accuracy advantage even under these extreme 
 
 ### Practical Implementation Guidance
 
-**Primary recommendation**: Use complex-step differentiation with h_rel ∈ [10^-10, 10^-6] for both Delta and Gamma computations. The optimal practical choice is h_rel ≈ 10^-8, which balances numerical precision with computational stability.
+**Primary recommendation**: Use complex-step differentiation with h_rel ∈ [10^-7, 10^-5] for both Delta and Gamma computations. The optimal practical choice is h_rel ≈ 10^-6, which balances numerical precision with computational stability.
 
 **Method-specific recommendations**:
 - **Delta**: Complex-step standard method (imaginary part)
