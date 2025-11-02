@@ -12,6 +12,7 @@ set multiplot layout 2,2 title "Scenario 1: ATM Reference (S=K=100, r=q=0, σ=0.
 
 # Delta FD Error
 set logscale xy
+set xrange [*:*] reverse
 set xlabel "h_{rel}"
 set ylabel "Absolute Error"
 set title "Delta: Finite Difference Error"
@@ -24,6 +25,7 @@ plot "output/bs_fd_vs_complex_scenario1.csv" every ::1 using 1:6 with linespoint
 
 # Delta CS Error
 set logscale xy
+set xrange [*:*] reverse
 set xlabel "h_{rel}"
 set ylabel "Absolute Error"
 set title "Delta: Complex Step Error"
@@ -33,6 +35,7 @@ plot "output/bs_fd_vs_complex_scenario1.csv" every ::1 using 1:($7 == 0 ? 1e-17 
 
 # Gamma FD Error
 set logscale xy
+set xrange [*:*] reverse
 set xlabel "h_{rel}"
 set ylabel "Absolute Error"
 set title "Gamma: Finite Difference Error"
@@ -45,6 +48,7 @@ plot "output/bs_fd_vs_complex_scenario1.csv" every ::1 using 1:12 with linespoin
 
 # Gamma CS Errors
 set logscale xy
+set xrange [*:*] reverse
 set xlabel "h_{rel}"
 set ylabel "Absolute Error"
 set title "Gamma: Complex Step Errors"
@@ -61,6 +65,7 @@ set multiplot layout 2,2 title "Scenario 2: Near-Expiry, Low-Vol, ATM (S=K=100, 
 
 # Delta FD Error
 set logscale xy
+set xrange [*:*] reverse
 set xlabel "h_{rel}"
 set ylabel "Absolute Error"
 set title "Delta: Finite Difference Error"
@@ -73,6 +78,7 @@ plot "output/bs_fd_vs_complex_scenario2.csv" every ::1 using 1:6 with linespoint
 
 # Delta CS Error
 set logscale xy
+set xrange [*:*] reverse
 set xlabel "h_{rel}"
 set ylabel "Absolute Error"
 set title "Delta: Complex Step Error"
@@ -82,6 +88,7 @@ plot "output/bs_fd_vs_complex_scenario2.csv" every ::1 using 1:($7 == 0 ? 1e-17 
 
 # Gamma FD Error
 set logscale xy
+set xrange [*:*] reverse
 set xlabel "h_{rel}"
 set ylabel "Absolute Error"
 set title "Gamma: Finite Difference Error"
@@ -94,6 +101,7 @@ plot "output/bs_fd_vs_complex_scenario2.csv" every ::1 using 1:12 with linespoin
 
 # Gamma CS Errors
 set logscale xy
+set xrange [*:*] reverse
 set xlabel "h_{rel}"
 set ylabel "Absolute Error"
 set title "Gamma: Complex Step Errors"
