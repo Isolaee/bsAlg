@@ -2,7 +2,7 @@
 
 [![C++ Unit Tests](https://github.com/Isolaee/bsAlg/actions/workflows/test.yml/badge.svg)](https://github.com/Isolaee/bsAlg/actions/workflows/test.yml)
 
-A comprehensive C++ implementation of Black-Scholes option Greeks with multiple numerical differentiation methods.
+A comprehensive C++ implementation of Black-Scholes option Greeks with multiple numerical differentiation methods. Purpose of this solution is to compare accuracy of different delta and gamma calculation mehtods.
 
 ## Features
 
@@ -14,13 +14,15 @@ A comprehensive C++ implementation of Black-Scholes option Greeks with multiple 
 
 ```
 bsAlg/
-├── bs_call_price/              # Black-Scholes pricing functions
-├── bs_call_price_greeks/       # Analytic Greek formulas
+├── bs_call_price/                  # Black-Scholes pricing functions
+├── bs_call_price_greeks/           # Analytic Greek formulas
 ├── classical_forward_differences/  # Finite difference methods
 ├── complex_step_differentation/    # Complex-step methods
-├── tests/                      # Unit tests
-├── output/                     # Generated CSV validation results
-└── test_greeks.cpp            # Main validation program
+├── tests/                          # Unit tests
+├── output/                         # Generated CSV validation results
+├── plotting/                       # Gnuplot scripts for plotting
+├── test_greeks.cpp                 # Main validation program
+└── write_greeks.cpp                # Write CSV program
 ```
 
 ## Building
@@ -52,7 +54,18 @@ g++ -std=c++11 -o tests/test_greeks_simple \
 
 ## Running
 
+### Run program
+```bash
+./test_greeks
+```
 
+Output:
+```
+=== Black-Scholes Greeks Validation ===
+.
+.
+.
+```
 
 ### Run Unit Tests
 ```bash
@@ -146,7 +159,7 @@ gnuplot plotting/plot_greeks.gnuplot      # Interactive Qt windows
 ```
 
 #### Output
-The scripts generate 2×2 grid plots for each scenario showing:
+The scripts generate grid plots for each scenario showing:
 - Delta: Finite Difference vs Complex Step errors
 - Gamma: Finite Difference vs Complex Step (Real & 45°) errors
 
