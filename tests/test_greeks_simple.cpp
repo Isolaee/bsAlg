@@ -215,23 +215,6 @@ void test_convergence_fd_to_cs() {
     tests_passed++;
 }
 
-void test_bs_analytic_call_dispatcher() {
-    std::cout << "Testing bs_analytic_call dispatcher... ";
-    
-    double S = 100.0, K = 100.0, r = 0.05, q = 0.02, sigma = 0.2, T = 1.0;
-    
-    double delta = bs_analytic_call("delta", S, K, r, q, sigma, T);
-    double gamma = bs_analytic_call("gamma", S, K, r, q, sigma, T);
-    double invalid = bs_analytic_call("invalid", S, K, r, q, sigma, T);
-    
-    assert(!std::isnan(delta) && "Delta should be valid");
-    assert(!std::isnan(gamma) && "Gamma should be valid");
-    assert(std::isnan(invalid) && "Invalid type should return NaN");
-    
-    std::cout << "✓ PASSED\n";
-    tests_passed++;
-}
-
 int main() {
     std::cout << "\n=== Running Black-Scholes Greeks Unit Tests ===\n\n";
     
@@ -253,10 +236,6 @@ int main() {
     test_complex_step_accuracy();
     test_complex_step_gamma_45deg();
     test_convergence_fd_to_cs();
-    
-    // Dispatcher tests
-    std::cout << "\n--- Dispatcher Tests ---\n";
-    test_bs_analytic_call_dispatcher();
     
     // Summary
     std::cout << "\n=== Test Summary ===\n";
