@@ -50,8 +50,8 @@ double gamma_fwd(double S, double K, double r, double q, double sigma, double T,
      * @param h     Step size
      * @return      Forward difference approximation of gamma
      */
-    double C_S = bs_price_call(S, K, r, q, sigma, T);
-    double C_S_plus_h = bs_price_call(S + h, K, r, q, sigma, T);
-    double C_S_plus_2h = bs_price_call(S + 2.0 * h, K, r, q, sigma, T);
+    const double C_S = bs_price_call(S, K, r, q, sigma, T);
+    const double C_S_plus_h = bs_price_call(S + h, K, r, q, sigma, T);
+    const double C_S_plus_2h = bs_price_call(S + 2.0 * h, K, r, q, sigma, T);
     return (C_S_plus_2h - 2.0 * C_S_plus_h + C_S) / (h * h);
 }
