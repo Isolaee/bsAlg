@@ -2,7 +2,7 @@
 
 [![C++ Unit Tests](https://github.com/Isolaee/bsAlg/actions/workflows/test.yml/badge.svg)](https://github.com/Isolaee/bsAlg/actions/workflows/test.yml)
 
-A comprehensive C++ implementation of Black-Scholes option Greeks with multiple numerical differentiation methods. Purpose of this solution is to compare accuracy of different delta and gamma calculation mehtods.
+A comprehensive C++ implementation of Black-Scholes option Greeks with multiple numerical differentiation methods. Purpose of this solution is to compare accuracy of different delta and gamma calculation methods.
 
 ## Features
 
